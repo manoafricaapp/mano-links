@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <!-- WhatsApp / Social preview -->
-  <meta property="og:title"       content="Shop with Mano!" />
-  <meta property="og:description" content="Groceries and food delivered to your doorstep" />
+  <meta property="og:title"       content="Win 5K or 1 Month Free Delivery!" />
+  <meta property="og:description" content="Shop with just 15K on the Mano App for your chance to win. Limited-time raffle." />
   <meta property="og:image"       content="https://manoafricaapp.github.io/mano-links/april-raffle.png" />
   <meta property="og:url"         content="https://manoafricaapp.github.io/mano-links/april-raffle" />
   <meta property="og:type"        content="website" />
@@ -16,7 +16,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-KQHKRTJE3R', {
-      page_title: 'April Raffle Link',
+      page_title: 'Free Delivery Link',
       page_path: '/mano-links/april-raffle'
     });
   </script>
@@ -28,7 +28,7 @@
     var platform  = isAndroid ? 'android' : (isIOS ? 'ios' : 'desktop');
 
     // Track the landing + detected platform (fires immediately, survives unload via beacon)
-    gtag('event', 'raffle_link_opened', {
+    gtag('event', 'wa_link_opened', {
       platform: platform,
       campaign: 'april_raffle',
       transport_type: 'beacon'
@@ -36,7 +36,7 @@
 
     // 1. Try to open the app via deep link — small delay gives GA4 time to send the beacon
     setTimeout(function() {
-      window.location = "mano://shop_types/1/shops";
+      window.location = "mano://home";
     }, 300);
 
     // 2. After 1.5s, if app not installed, go to store / web
@@ -54,7 +54,7 @@
       }
 
       // Track which destination the user is redirected to
-      gtag('event', 'raffle_link_redirect', {
+      gtag('event', 'wa_link_redirect', {
         destination: destination,
         platform: platform,
         campaign: 'april_raffle',
@@ -66,6 +66,6 @@
   </script>
 </head>
 <body style="font-family:sans-serif;text-align:center;padding:40px;color:#555">
-  <p>A abrir a App Mano...</p>
+  <p>Open Mano...</p>
 </body>
 </html>
