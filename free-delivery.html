@@ -6,23 +6,64 @@
   <meta property="og:title"       content="Entrega Grátis em Restaurantes!" />
   <meta property="og:description" content="0 taxa de entrega na App Mano. Válido até 30 de Abril." />
   <meta property="og:image"       content="https://manoafricaapp.github.io/mano-links/preview.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="628" />
   <meta property="og:url"         content="https://manoafricaapp.github.io/mano-links/free-delivery" />
   <meta property="og:type"        content="website" />
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KQHKRTJE3R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KQHKRTJE3R', {
+      page_title: 'Free Delivery Link',
+      page_path: '/mano-links/free-delivery'
+    });
+  </script>
+
   <script>
     var ua = navigator.userAgent.toLowerCase();
     var isAndroid = /android/.test(ua);
     var isIOS     = /iphone|ipad|ipod/.test(ua);
-    // 1. Try to open the app via deep link
-    window.location = "mano://shop_types/1/shops";
-    // 2. After 1.5s, if app not installed, go to store
+    var platform  = isAndroid ? 'android' : (isIOS ? 'ios' : 'desktop');
+
+    // Track the landing + detected platform (fires immediately, survives unload via beacon)
+    gtag('event', 'wa_link_opened', {
+      platform: platform,
+      campaign: 'free_delivery',
+      transport_type: 'beacon'
+    });
+
+    // 1. Try to open the app via deep link — small delay gives GA4 time to send the beacon
     setTimeout(function() {
+      window.location = "mano://shop_types/1/shops";
+    }, 300);
+
+    // 2. After 1.5s, if app not installed, go to store / web
+    setTimeout(function() {
+      var destination, target;
       if (isAndroid) {
-        window.location = "https://play.google.com/store/apps/details?id=co.eddress.mano";
+        destination = 'play_store';
+        target = "https://play.google.com/store/apps/details?id=co.eddress.mano";
       } else if (isIOS) {
-        window.location = "https://apps.apple.com/app/id1545005589";
+        destination = 'app_store';
+        target = "https://apps.apple.com/app/id1545005589";
       } else {
-        window.location = "https://shop.manoapp.com/pt";
+        destination = 'web_shop';
+        target = "https://shop.manoapp.com/pt";
       }
+
+      // Track which destination the user is redirected to
+      gtag('event', 'wa_link_redirect', {
+        destination: destination,
+        platform: platform,
+        campaign: 'free_delivery',
+        transport_type: 'beacon'
+      });
+
+      window.location = target;
     }, 1500);
   </script>
 </head>
