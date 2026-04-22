@@ -34,8 +34,10 @@
       transport_type: 'beacon'
     });
 
-    // 1. Try to open the app via deep link
-    window.location = "mano://shop_types/1/shops";
+    // 1. Try to open the app via deep link — small delay gives GA4 time to send the beacon
+    setTimeout(function() {
+      window.location = "mano://shop_types/1/shops";
+    }, 300);
 
     // 2. After 1.5s, if app not installed, go to store / web
     setTimeout(function() {
